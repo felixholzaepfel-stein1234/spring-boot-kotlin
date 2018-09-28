@@ -2,26 +2,33 @@
 
 set -Eeu -o pipefail
 
+TAG="worldservice"
+
+_build(){
+    ./gradlew assemble
+    docker build . -t ${TAG}
+}
+
 _cleanup() {
   docker-compose kill
   docker-compose rm -fv
 }
 
-_run() {
+compose() {
   trap _cleanup EXIT TERM
   docker-compose up
 }
 
-_build() {
-    ./helloservice/run build
-    ./worldservice/run build
-    ./coroutines/run build
+_run() {
+  docker run -t ${TAG}
 }
 
 usage() {
     echo "Usage: $0 build | run"
     exit 0
 }
+
+cd $(dirname $0)
 
 CMD=${1:-}
 shift || true

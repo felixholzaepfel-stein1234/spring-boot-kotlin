@@ -3,6 +3,9 @@ services:
   helloservice:
     image: helloservice
     container_name: "helloservice"
+  worldservice:
+    image: worldservice
+    container_name: "worldservice"
   coroutines:
     image: coroutines
     container_name: "coroutines"
@@ -10,3 +13,4 @@ services:
       - 8080:8080
     depends_on:
       - helloservice
+      - worldservice
