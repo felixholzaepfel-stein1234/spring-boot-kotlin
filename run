@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -Eeu -o pipefail
+
+_cleanup() {
+  docker-compose kill
+  docker-compose rm -fv
+}
+
+_run() {
+  trap _cleanup EXIT TERM
+  docker-compose up
+}
+
+_build() {
+    ./coroutines/run build
+}
+
+usage() {
+    echo "Usage: $0 build | run"
+    exit 0
+}
+
+CMD=${1:-}
+shift || true
+case ${CMD} in
+  build) _build ;;
+  run) _run ;;
+  *) usage ;;
+esac

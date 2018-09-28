@@ -1,0 +1,7 @@
+version: "3"
+services:
+  coroutines:
+    image: coroutines
+    container_name: "coroutines"
+    ports:
+      - 8080:8080
