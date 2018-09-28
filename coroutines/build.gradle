@@ -1,10 +1,13 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.51'
+        kotlinVersion = '1.2.50'
         springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
+        maven {
+            url  "https://dl.bintray.com/konrad-kaminski/maven"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -37,7 +40,12 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    maven {
+        url  "https://dl.bintray.com/konrad-kaminski/maven"
+    }
 }
+
+kotlin { experimental { coroutines 'enable' } }
 
 
 dependencies {
@@ -46,5 +54,8 @@ dependencies {
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.3")
+    compile("org.springframework.kotlin:spring-kotlin-coroutine:0.3.5")
+    compile("org.springframework.kotlin:spring-webmvc-kotlin-coroutine:0.3.5")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
